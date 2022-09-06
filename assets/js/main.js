@@ -27,13 +27,7 @@ document.addEventListener('click', function (e) {
 let stopwatch = 0;
 let timer;
 
-function startStopWatch() {
-    timer = setInterval(function () {
-        stopwatch++;
-        clock.innerHTML = getHourFromSeconds(stopwatch);
-    }, 1000);
-}
-
+//Pega a hora e formata
 function getHourFromSeconds(seconds) {
     const data = new Date(seconds * 1000);
 
@@ -43,6 +37,45 @@ function getHourFromSeconds(seconds) {
     });
 }
 
+//Inicia o cronômetro
+function startStopWatch() {
+    timer = setInterval(function () {
+        stopwatch++;
+        clock.innerHTML = getHourFromSeconds(stopwatch);
+    }, 1000);
+}
+
+//Habilita o botão de reiniciar o cronômetro
+function enableRestart() {
+    restart.disabled = false; 
+
+    restart.classList.remove('disabled');
+    restart.classList.add('restart');
+}
+
+//Desabilita o botão de reiniciar o crônometro
+function disableRestart() {
+    restart.disabled = true;
+
+    restart.classList.remove('restart');
+    restart.classList.add('disabled');
+}
+
+//Transforma o botão de pausar em iniciar
+function turnStop() {
+    start.innerHTML = "Pausar";
+    start.classList.remove('start');
+    start.classList.add('stop');
+}
+
+//Transforma o botão de iniciar em pausar
+function turnStart() {
+    start.innerHTML = "Iniciar";
+    start.classList.remove('stop');
+    start.classList.add('start');
+}
+
+//Executa as ações do botão iniciar
 function buttonStart() {
     clock.classList.remove('stopped');
     enableRestart();
@@ -52,6 +85,7 @@ function buttonStart() {
     startStopWatch();
 }
 
+//Executa as ações do botão pausar
 function buttonStop() {
     clock.classList.add('stopped');
     turnStart();
@@ -59,6 +93,7 @@ function buttonStop() {
     clearInterval(timer);
 }
 
+//Executa as ações do botão reiniciar
 function buttonRestart() {
     clock.classList.remove('stopped');
     disableRestart();
@@ -67,30 +102,4 @@ function buttonRestart() {
     clearInterval(timer);
     clock.innerHTML = getHourFromSeconds(0);
     stopwatch = 0;
-}
-
-function enableRestart() {
-    restart.disabled = false; //Habilita o botão Zerar
-
-    restart.classList.remove('disabled');
-    restart.classList.add('restart');
-}
-
-function disableRestart() {
-    restart.disabled = true;
-
-    restart.classList.remove('restart');
-    restart.classList.add('disabled');
-}
-
-function turnStop() {
-    start.innerHTML = "Pausar";
-    start.classList.remove('start');
-    start.classList.add('stop');
-}
-
-function turnStart() {
-    start.innerHTML = "Iniciar";
-    start.classList.remove('stop');
-    start.classList.add('start');
 }
